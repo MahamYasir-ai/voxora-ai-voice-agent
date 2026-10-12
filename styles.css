@@ -1469,28 +1469,92 @@ p {
   opacity: 0.6;
 }
 
-/* Toast Notification for Prompt Copy */
+/* Toast Notification - Positioned at top right so it is NEVER obscured by bottom widgets */
 .toast-notice {
   position: fixed;
-  bottom: 24px;
+  top: 86px;
   right: 24px;
-  background: #111a33;
+  background: rgba(13, 20, 40, 0.96);
   color: #ffffff;
   border: 1px solid var(--accent-cyan);
-  padding: 12px 18px;
+  padding: 12px 20px;
   border-radius: var(--radius-md);
   font-size: 0.875rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  transform: translateY(100px);
+  font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  transform: translateY(-20px);
   opacity: 0;
   transition: transform var(--transition-normal), opacity var(--transition-normal);
-  z-index: 9999;
+  z-index: 999999;
   pointer-events: none;
+  max-width: 400px;
+  backdrop-filter: blur(8px);
 }
 
 .toast-notice.is-visible {
   transform: translateY(0);
   opacity: 1;
+}
+
+/* ==========================================================================
+   OMNIDIMENSION FLOATING WIDGET RESTRAINT & CLOSE BUTTON
+   ========================================================================== */
+/* Constrain floating chat window so it never exceeds the top of the viewport */
+iframe[src*="omnidim"],
+iframe#omnidimension-widget-frame,
+div[id*="omnidimension"][style*="position: fixed"],
+div[class*="omnidim"][style*="position: fixed"],
+.omnidim-chat-window,
+.omnidimension-modal {
+  max-height: min(530px, calc(100vh - 140px)) !important;
+  top: auto !important;
+  bottom: 84px !important;
+  right: 20px !important;
+  border-radius: 16px !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  overflow: hidden !important;
+}
+
+/* Dedicated Close (✕) Button for OmniDimension Chat Window */
+.omnidim-close-btn {
+  position: fixed;
+  z-index: 1000000;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #0f172a;
+  border: 1.5px solid var(--accent-cyan);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.omnidim-close-btn:hover {
+  background: #1e293b;
+  border-color: #ffffff;
+  transform: scale(1.1);
+}
+
+.omnidim-close-btn.is-active {
+  display: flex !important;
+}
+
+@media (max-width: 640px) {
+  iframe[src*="omnidim"],
+  div[id*="omnidim"][style*="position: fixed"] {
+    max-height: calc(100vh - 120px) !important;
+    bottom: 20px !important;
+    right: 10px !important;
+    left: 10px !important;
+    width: calc(100vw - 20px) !important;
+  }
 }
 
 /* ==========================================================================

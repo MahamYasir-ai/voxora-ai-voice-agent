@@ -434,28 +434,100 @@ function initPromptChips() {
 }
 
 /* ==========================================================================
-   7. OMNIDIMENSION OFFICIAL WIDGET TRIGGER
+   7. OMNIDIMENSION OFFICIAL WIDGET TRIGGER & CLOSE CONTROLLER
    ========================================================================== */
 function triggerOmniDimensionWidget() {
+  // Restore any hidden widget elements
+  const widgetElements = document.querySelectorAll('iframe[src*="omnidim"], div[id*="omnidim"], div[class*="omnidim"]');
+  widgetElements.forEach((el) => {
+    if (el.style.display === 'none') {
+      el.style.display = '';
+    }
+  });
+
   const launcher = document.querySelector('[id*="omnidim"] button, [class*="omnidim"] button, iframe[src*="omnidim"]');
   if (launcher && typeof launcher.click === 'function') {
     try { launcher.click(); } catch (_) {}
   }
+
+  // Check and display close button shortly after opening
+  setTimeout(positionFloatingCloseButton, 300);
+  setTimeout(positionFloatingCloseButton, 900);
+}
+
+function positionFloatingCloseButton() {
+  const closeBtn = document.getElementById('omnidim-floating-close-btn');
+  if (!closeBtn) return;
+
+  const chatPanel = document.querySelector('iframe[src*="omnidim"], div[id*="omnidimension"][style*="position: fixed"], div[class*="omnidim"][style*="position: fixed"], .omnidim-chat-window');
+  
+  if (chatPanel) {
+    const rect = chatPanel.getBoundingClientRect();
+    // Only show close button if the panel is open/expanded (height & width > 120px)
+    if (rect.height > 120 && rect.width > 120 && chatPanel.style.display !== 'none') {
+      closeBtn.classList.add('is-active');
+      const topPos = Math.max(86, rect.top - 12);
+      const rightPos = Math.max(16, window.innerWidth - rect.right + 4);
+      closeBtn.style.top = `${topPos}px`;
+      closeBtn.style.right = `${rightPos}px`;
+      return;
+    }
+  }
+
+  closeBtn.classList.remove('is-active');
 }
 
 function initOmniWidgetIntegration() {
   const triggerBtn = document.getElementById('trigger-widget-btn');
+  const closeBtn = document.getElementById('omnidim-floating-close-btn');
+
   if (triggerBtn) {
     triggerBtn.addEventListener('click', () => {
       triggerOmniDimensionWidget();
       const toast = document.getElementById('copy-toast');
       if (toast) {
-        toast.textContent = 'OmniDimension voice session requested. Check the widget in your bottom-right corner.';
+        toast.textContent = 'OmniDimension voice assistant opened. Click ✕ anytime to close.';
         toast.classList.add('is-visible');
         setTimeout(() => toast.classList.remove('is-visible'), 4000);
       }
     });
   }
+
+  // Dedicated Close Button Handler
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      // Find all widget panels or iframes and hide them
+      const widgetPanels = document.querySelectorAll('iframe[src*="omnidim"], div[id*="omnidim"][style*="position: fixed"], div[class*="omnidim"][style*="position: fixed"], .omnidim-chat-window');
+      
+      widgetPanels.forEach((panel) => {
+        panel.style.display = 'none';
+      });
+
+      // Try triggering internal close or launcher if available
+      const internalCloseOrToggle = document.querySelector('[id*="omnidim"] button[aria-label*="close" i], [class*="omnidim"] button[aria-label*="close" i]');
+      if (internalCloseOrToggle && typeof internalCloseOrToggle.click === 'function') {
+        try { internalCloseOrToggle.click(); } catch (_) {}
+      }
+
+      closeBtn.classList.remove('is-active');
+
+      const toast = document.getElementById('copy-toast');
+      if (toast) {
+        toast.textContent = 'Voxora chat closed. Click the corner voice icon or Talk to Voxora to reopen.';
+        toast.classList.add('is-visible');
+        setTimeout(() => toast.classList.remove('is-visible'), 3500);
+      }
+    });
+  }
+
+  // Dynamic observer to keep chat panel within viewport bounds and track open state
+  const observer = new MutationObserver(() => {
+    positionFloatingCloseButton();
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+  window.addEventListener('resize', positionFloatingCloseButton);
+  setInterval(positionFloatingCloseButton, 1200);
 }
 
 /* ==========================================================================
