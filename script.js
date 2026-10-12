@@ -1,9 +1,9 @@
 /**
  * Voxora AI - Interactive Client Engine
- * Controls Voice Calling, Two-Way Text Chat, OmniDimension Widget, and Real Services
+ * Fully featured Voice Calling, Two-Way Text Chat, and OmniDimension Integration
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+function startApp() {
   initNavigation();
   initWaveformVisualizer();
   initDemoTabs();
@@ -12,10 +12,16 @@ document.addEventListener('DOMContentLoaded', () => {
   initPromptChips();
   initOmniWidgetIntegration();
   initBusinessServicesForm();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startApp);
+} else {
+  startApp();
+}
 
 /* ==========================================================================
-   1. NAVIGATION & GLOBAL CALL BUTTONS
+   1. NAVIGATION & GLOBAL "TALK TO VOXORA" BUTTONS
    ========================================================================== */
 function initNavigation() {
   const mobileToggle = document.getElementById('mobile-toggle');
@@ -41,7 +47,7 @@ function initNavigation() {
     });
   }
 
-  // Smooth scroll for standard links
+  // Smooth scroll for nav anchor links
   navAnchors.forEach((anchor) => {
     anchor.addEventListener('click', (e) => {
       const href = anchor.getAttribute('href');
@@ -56,24 +62,36 @@ function initNavigation() {
     });
   });
 
-  // Global "Talk to Voxora" buttons (Header, Hero)
+  // Global "Talk to Voxora" buttons (Header, Hero, Mobile Drawer)
   const allCallTriggers = document.querySelectorAll('.btn-start-call-nav, #hero-call-btn');
   allCallTriggers.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
+
       const demoSection = document.getElementById('live-demo');
       if (demoSection) {
         demoSection.scrollIntoView({ behavior: 'smooth' });
       }
 
-      // Switch to voice tab and launch voice call
+      // Switch to voice tab
       const voiceTab = document.getElementById('tab-voice');
       if (voiceTab) voiceTab.click();
 
+      // Launch on-page voice call
       setTimeout(() => {
         const startTrigger = document.getElementById('start-call-trigger');
         if (startTrigger) startTrigger.click();
-      }, 500);
+      }, 400);
+
+      // Also trigger OmniDimension side widget
+      triggerOmniDimensionWidget();
+
+      const toast = document.getElementById('copy-toast');
+      if (toast) {
+        toast.textContent = 'Starting voice call with Voxora...';
+        toast.classList.add('is-visible');
+        setTimeout(() => toast.classList.remove('is-visible'), 3500);
+      }
 
       if (navLinksList) navLinksList.classList.remove('is-open');
     });
@@ -81,7 +99,7 @@ function initNavigation() {
 }
 
 /* ==========================================================================
-   2. DEMO TABS CONTROLLER (Voice Call / Text Chat / Omni Widget)
+   2. DEMO TABS (Voice Call / Text Chat / Omni Widget)
    ========================================================================== */
 function initDemoTabs() {
   const tabs = document.querySelectorAll('.demo-tab');
@@ -105,12 +123,12 @@ function initDemoTabs() {
       const targetPanel = document.getElementById(targetPanelId);
       if (targetPanel) {
         targetPanel.classList.add('active');
-        targetPanel.style.display = targetPanelId === 'panel-chat' ? 'block' : 'block';
+        targetPanel.style.display = 'block';
       }
     });
   });
 
-  // Shortcut from voice idle screen: "Prefer to Type? Open Chat"
+  // Shortcut inside voice idle screen: "Prefer to Type? Open Chat"
   const switchToChatBtn = document.getElementById('switch-to-chat-btn');
   if (switchToChatBtn) {
     switchToChatBtn.addEventListener('click', () => {
@@ -121,7 +139,7 @@ function initDemoTabs() {
 }
 
 /* ==========================================================================
-   3. VELOURA STUDIO CONVERSATIONAL INTELLIGENCE (Exact Agent Rules)
+   3. VELOURA STUDIO CONVERSATIONAL INTELLIGENCE
    ========================================================================== */
 function getVoxoraResponse(userText) {
   const text = (userText || '').toLowerCase().trim();
@@ -159,7 +177,7 @@ function getVoxoraResponse(userText) {
     return "Thank you! I have recorded your contact number and requested details. Our salon front desk will call you back shortly to confirm staff availability and finalize your appointment.";
   }
 
-  // 7. Haircut / Facial / Makeup specific inquiries
+  // 7. Specific Treatments
   if (text.includes('haircut') || text.includes('hair color') || text.includes('facial') || text.includes('makeup') || text.includes('bridal') || text.includes('manicure') || text.includes('pedicure')) {
     return "Yes, we specialize in that service at Veloura Studio! Would you like to request an appointment date and time, or have our specialist call you back with more details?";
   }
@@ -175,11 +193,11 @@ function getVoxoraResponse(userText) {
   }
 
   // 10. Default Conversational Fallback
-  return "Thank you for reaching out to Veloura Studio in Karachi. I can assist you with our services, opening hours (Mon-Sat 10 AM-8 PM), or taking an appointment request for a confirmation callback. How can I help?";
+  return "Thank you for calling Veloura Studio in Karachi. I can assist you with our services, opening hours (Mon-Sat 10 AM-8 PM), or taking an appointment request for a confirmation callback. How can I help?";
 }
 
 /* ==========================================================================
-   4. VOICE CALL ENGINE (Interactive Microphone & In-Browser Voice)
+   4. VOICE CALL ENGINE (Microphone + Audio Speech Synthesis)
    ========================================================================== */
 function initVoiceCallEngine() {
   const idleState = document.getElementById('voice-idle-state');
@@ -190,6 +208,9 @@ function initVoiceCallEngine() {
   const timerLabel = document.getElementById('call-timer');
   const captionText = document.getElementById('live-caption-text');
   const muteLabel = document.getElementById('mute-label');
+  const inCallForm = document.getElementById('in-call-text-form');
+  const inCallInput = document.getElementById('in-call-query-input');
+  const inCallChips = document.querySelectorAll('.in-call-chip');
 
   let callTimerInterval = null;
   let callSeconds = 0;
@@ -197,24 +218,41 @@ function initVoiceCallEngine() {
   let recognition = null;
   let isCallActive = false;
 
-  // Speech Recognition Setup
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
   function speakText(text) {
     if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 1.0;
-      utterance.pitch = 1.0;
-      utterance.lang = 'en-US';
+      try {
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.resume();
 
-      // Pick natural sounding female voice if available
-      const voices = window.speechSynthesis.getVoices();
-      const naturalVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Female')));
-      if (naturalVoice) utterance.voice = naturalVoice;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 1.0;
+        utterance.pitch = 1.0;
+        utterance.lang = 'en-US';
 
-      window.speechSynthesis.speak(utterance);
+        const voices = window.speechSynthesis.getVoices();
+        const preferredVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Female')));
+        if (preferredVoice) utterance.voice = preferredVoice;
+
+        window.speechSynthesis.speak(utterance);
+      } catch (err) {
+        console.warn('Speech synthesis audio notice:', err);
+      }
     }
+  }
+
+  function handleCallerSpeech(query) {
+    if (!isCallActive || !query) return;
+
+    if (captionText) captionText.textContent = `You: "${query}"`;
+
+    setTimeout(() => {
+      if (!isCallActive) return;
+      const reply = getVoxoraResponse(query);
+      if (captionText) captionText.textContent = `Voxora: "${reply}"`;
+      speakText(reply);
+    }, 400);
   }
 
   function startRecognition() {
@@ -231,22 +269,14 @@ function initVoiceCallEngine() {
           const lastResult = event.results[event.results.length - 1];
           if (lastResult.isFinal) {
             const transcript = lastResult[0].transcript.trim();
-            if (transcript.length > 0 && isCallActive) {
-              if (captionText) captionText.textContent = `You: "${transcript}"`;
-
-              // Generate Voxora Response
-              setTimeout(() => {
-                if (!isCallActive) return;
-                const reply = getVoxoraResponse(transcript);
-                if (captionText) captionText.textContent = `Voxora: "${reply}"`;
-                speakText(reply);
-              }, 400);
+            if (transcript.length > 0) {
+              handleCallerSpeech(transcript);
             }
           }
         };
 
         recognition.onerror = (e) => {
-          console.warn('Speech recognition status:', e.error);
+          console.warn('Microphone status:', e.error);
         };
 
         recognition.onend = () => {
@@ -258,16 +288,16 @@ function initVoiceCallEngine() {
 
       recognition.start();
     } catch (err) {
-      console.warn('Mic recognition notice:', err);
+      console.warn('Speech recognition notice:', err);
     }
   }
 
   function startCall() {
     isCallActive = true;
-    idleState.style.display = 'none';
-    activeState.style.display = 'flex';
+    if (idleState) idleState.style.display = 'none';
+    if (activeState) activeState.style.display = 'flex';
 
-    // Start Timer
+    // Timer setup
     callSeconds = 0;
     if (timerLabel) timerLabel.textContent = '00:00';
     clearInterval(callTimerInterval);
@@ -278,28 +308,27 @@ function initVoiceCallEngine() {
       if (timerLabel) timerLabel.textContent = `${mins}:${secs}`;
     }, 1000);
 
-    // Initial Greeting
+    // Initial Spoken Greeting
     const welcome = "Hello, thank you for calling Veloura Studio. How can I assist you today?";
     if (captionText) captionText.textContent = `Voxora: "${welcome}"`;
     speakText(welcome);
 
-    // Start Listening
+    // Start listening through microphone
     startRecognition();
-
-    // Also trigger OmniDimension widget if loaded
-    triggerOmniDimensionWidget();
   }
 
   function endCall() {
     isCallActive = false;
     clearInterval(callTimerInterval);
-    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    if ('speechSynthesis' in window) {
+      try { window.speechSynthesis.cancel(); } catch (_) {}
+    }
     if (recognition) {
       try { recognition.stop(); } catch (_) {}
     }
 
-    activeState.style.display = 'none';
-    idleState.style.display = 'flex';
+    if (activeState) activeState.style.display = 'none';
+    if (idleState) idleState.style.display = 'flex';
   }
 
   if (startBtn) startBtn.addEventListener('click', startCall);
@@ -318,7 +347,27 @@ function initVoiceCallEngine() {
     });
   }
 
-  // Pre-load voices
+  // Handle in-call text input
+  if (inCallForm && inCallInput) {
+    inCallForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = inCallInput.value.trim();
+      if (val) {
+        handleCallerSpeech(val);
+        inCallInput.value = '';
+      }
+    });
+  }
+
+  // Handle in-call quick chips
+  inCallChips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const query = chip.getAttribute('data-speak') || chip.innerText.trim();
+      handleCallerSpeech(query);
+    });
+  });
+
+  // Pre-fetch voices
   if ('speechSynthesis' in window) {
     window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
   }
@@ -389,43 +438,42 @@ function initPromptChips() {
     chip.addEventListener('click', () => {
       const promptText = chip.getAttribute('data-prompt') || chip.innerText.trim();
 
-      // Check which tab is currently active
       const activeTab = document.querySelector('.demo-tab.active');
-      const isChatTab = activeTab && activeTab.id === 'tab-chat';
+      const isVoiceTab = activeTab && activeTab.id === 'tab-voice';
+      const activeCallState = document.getElementById('voice-active-state');
+      const isCallRunning = activeCallState && activeCallState.style.display !== 'none';
 
-      if (isChatTab && chatInput && chatForm) {
-        chatInput.value = promptText;
-        chatForm.dispatchEvent(new Event('submit', { cancelable: true }));
-      } else {
-        // If on voice tab or idle, execute in voice call or switch to chat
+      if (isVoiceTab && isCallRunning) {
+        // If voice call is active, speak to Voxora inside the call!
         const liveCaption = document.getElementById('live-caption-text');
-        const activeCallState = document.getElementById('voice-active-state');
+        if (liveCaption) liveCaption.textContent = `You: "${promptText}"`;
 
-        if (activeCallState && activeCallState.style.display !== 'none') {
-          if (liveCaption) liveCaption.textContent = `You: "${promptText}"`;
-          setTimeout(() => {
-            const reply = getVoxoraResponse(promptText);
-            if (liveCaption) liveCaption.textContent = `Voxora: "${reply}"`;
-            if ('speechSynthesis' in window) {
+        setTimeout(() => {
+          const reply = getVoxoraResponse(promptText);
+          if (liveCaption) liveCaption.textContent = `Voxora: "${reply}"`;
+          if ('speechSynthesis' in window) {
+            try {
+              window.speechSynthesis.cancel();
               const utter = new SpeechSynthesisUtterance(reply);
               window.speechSynthesis.speak(utter);
-            }
-          }, 350);
-        } else {
-          // Switch to chat and ask
-          const chatTab = document.getElementById('tab-chat');
-          if (chatTab) chatTab.click();
-          setTimeout(() => {
-            if (chatInput && chatForm) {
-              chatInput.value = promptText;
-              chatForm.dispatchEvent(new Event('submit', { cancelable: true }));
-            }
-          }, 200);
-        }
+            } catch (_) {}
+          }
+        }, 400);
+      } else {
+        // Switch to chat tab and send message
+        const chatTab = document.getElementById('tab-chat');
+        if (chatTab) chatTab.click();
+
+        setTimeout(() => {
+          if (chatInput && chatForm) {
+            chatInput.value = promptText;
+            chatForm.dispatchEvent(new Event('submit', { cancelable: true }));
+          }
+        }, 200);
       }
 
       if (toast) {
-        toast.textContent = `Query sent to Voxora: "${promptText}"`;
+        toast.textContent = `Asked Voxora: "${promptText}"`;
         toast.classList.add('is-visible');
         setTimeout(() => toast.classList.remove('is-visible'), 3000);
       }
@@ -450,9 +498,8 @@ function triggerOmniDimensionWidget() {
     try { launcher.click(); } catch (_) {}
   }
 
-  // Check and display close button shortly after opening
-  setTimeout(positionFloatingCloseButton, 300);
-  setTimeout(positionFloatingCloseButton, 900);
+  setTimeout(positionFloatingCloseButton, 400);
+  setTimeout(positionFloatingCloseButton, 1000);
 }
 
 function positionFloatingCloseButton() {
@@ -460,10 +507,9 @@ function positionFloatingCloseButton() {
   if (!closeBtn) return;
 
   const chatPanel = document.querySelector('iframe[src*="omnidim"], div[id*="omnidimension"][style*="position: fixed"], div[class*="omnidim"][style*="position: fixed"], .omnidim-chat-window');
-  
+
   if (chatPanel) {
     const rect = chatPanel.getBoundingClientRect();
-    // Only show close button if the panel is open/expanded (height & width > 120px)
     if (rect.height > 120 && rect.width > 120 && chatPanel.style.display !== 'none') {
       closeBtn.classList.add('is-active');
       const topPos = Math.max(86, rect.top - 12);
@@ -493,17 +539,14 @@ function initOmniWidgetIntegration() {
     });
   }
 
-  // Dedicated Close Button Handler
+  // Close Button Handler
   if (closeBtn) {
     closeBtn.addEventListener('click', () => {
-      // Find all widget panels or iframes and hide them
       const widgetPanels = document.querySelectorAll('iframe[src*="omnidim"], div[id*="omnidim"][style*="position: fixed"], div[class*="omnidim"][style*="position: fixed"], .omnidim-chat-window');
-      
       widgetPanels.forEach((panel) => {
         panel.style.display = 'none';
       });
 
-      // Try triggering internal close or launcher if available
       const internalCloseOrToggle = document.querySelector('[id*="omnidim"] button[aria-label*="close" i], [class*="omnidim"] button[aria-label*="close" i]');
       if (internalCloseOrToggle && typeof internalCloseOrToggle.click === 'function') {
         try { internalCloseOrToggle.click(); } catch (_) {}
@@ -513,21 +556,20 @@ function initOmniWidgetIntegration() {
 
       const toast = document.getElementById('copy-toast');
       if (toast) {
-        toast.textContent = 'Voxora chat closed. Click the corner voice icon or Talk to Voxora to reopen.';
+        toast.textContent = 'Voxora chat closed. Click Talk to Voxora to reopen.';
         toast.classList.add('is-visible');
         setTimeout(() => toast.classList.remove('is-visible'), 3500);
       }
     });
   }
 
-  // Dynamic observer to keep chat panel within viewport bounds and track open state
   const observer = new MutationObserver(() => {
     positionFloatingCloseButton();
   });
 
   observer.observe(document.body, { childList: true, subtree: true, attributes: true });
   window.addEventListener('resize', positionFloatingCloseButton);
-  setInterval(positionFloatingCloseButton, 1200);
+  setInterval(positionFloatingCloseButton, 1500);
 }
 
 /* ==========================================================================
@@ -540,8 +582,7 @@ function initBusinessServicesForm() {
   if (form && successBox) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      
-      const name = document.getElementById('contact-name').value;
+
       const business = document.getElementById('contact-business').value;
 
       form.style.display = 'none';
@@ -549,7 +590,7 @@ function initBusinessServicesForm() {
 
       const toast = document.getElementById('copy-toast');
       if (toast) {
-        toast.textContent = `Inquiry received for ${business}. Our team will contact you shortly!`;
+        toast.textContent = `Inquiry received for ${business}! Our team will contact you shortly.`;
         toast.classList.add('is-visible');
         setTimeout(() => toast.classList.remove('is-visible'), 4500);
       }

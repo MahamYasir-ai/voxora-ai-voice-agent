@@ -299,6 +299,27 @@
                   <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
                 </div>
 
+                <!-- In-Call Quick Questions to speak -->
+                <div class="in-call-quick-prompts">
+                  <span class="in-call-prompts-label">Tap to ask aloud:</span>
+                  <button type="button" class="in-call-chip" data-speak="What services do you offer?">What services do you offer?</button>
+                  <button type="button" class="in-call-chip" data-speak="Are you open on Sundays?">Opening Hours</button>
+                  <button type="button" class="in-call-chip" data-speak="Can you book me for a haircut tomorrow?">Book Haircut</button>
+                  <button type="button" class="in-call-chip" data-speak="Where are you located in Karachi?">Location</button>
+                </div>
+
+                <!-- In-Call Speak / Type Form -->
+                <form id="in-call-text-form" class="in-call-input-bar">
+                  <input type="text" id="in-call-query-input" placeholder="Speak into mic or type a question here..." autocomplete="off" aria-label="Ask Voxora during call" />
+                  <button type="submit" class="btn-primary in-call-send-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;">
+                      <line x1="22" y1="2" x2="11" y2="13"/>
+                      <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                    Send to Voxora
+                  </button>
+                </form>
+
                 <!-- Call Control Bar -->
                 <div class="in-call-controls">
                   <button type="button" id="mute-mic-btn" class="call-ctrl-btn" aria-label="Mute or unmute microphone">
@@ -639,7 +660,7 @@
     </footer>
 
     <!-- Client-Side Vanilla JS -->
-    <script src="./script.js"></script>
+    <script type="module" src="./script.js"></script>
 
     <!-- =====================================================================
          OMNIDIMENSION OFFICIAL WEB WIDGET SCRIPT
