@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voxora AI - AI Voice Receptionist</title>
+    <meta name="description" content="Portfolio website for Voxora AI, an AI voice receptionist powered by OmniDimension." />
+    
+    <!-- Open Graph / Social Sharing Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Voxora AI - AI Voice Receptionist" />
+    <meta property="og:description" content="Portfolio website for Voxora AI, an AI voice receptionist powered by OmniDimension." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Voxora AI - AI Voice Receptionist" />
+    <meta name="twitter:description" content="Portfolio website for Voxora AI, an AI voice receptionist powered by OmniDimension." />
+
+    <!-- Favicon (Inline SVG Voice Mark) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2306b6d4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z'/%3E%3Cpath d='M19 10v2a7 7 0 0 1-14 0v-2'/%3E%3Cline x1='12' x2='12' y1='19' y2='22'/%3E%3C/svg%3E" />
+
+    <!-- External Stylesheet (Vanilla CSS3) -->
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- =====================================================================
+         1. SITE HEADER & NAVIGATION
+         ===================================================================== -->
+    <header class="site-header" role="banner">
+      <div class="container header-container">
+        
+        <!-- Brand Wordmark -->
+        <a href="#top" class="brand-link" aria-label="Voxora AI homepage">
+          <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" x2="12" y1="19" y2="22"/>
+          </svg>
+          <span class="brand-name">Voxora <span class="brand-accent">AI</span></span>
+        </a>
+
+        <!-- Navigation Links -->
+        <nav id="site-navigation" aria-label="Main Navigation">
+          <ul class="nav-links" id="nav-links">
+            <li><a href="#live-demo" class="nav-link">Live Demo</a></li>
+            <li><a href="#features" class="nav-link">Features</a></li>
+            <li><a href="#business-services" class="nav-link">Real Services</a></li>
+            <!-- Mobile Action -->
+            <li><button type="button" class="btn-primary md:hidden btn-start-call-nav">Talk to Voxora</button></li>
+          </ul>
+        </nav>
+
+        <!-- Primary Action & Mobile Toggle -->
+        <div class="header-actions">
+          <button type="button" class="btn-primary btn-start-call-nav" aria-label="Start call with Voxora">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            Talk to Voxora
+          </button>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button 
+            type="button" 
+            class="mobile-toggle" 
+            id="mobile-toggle" 
+            aria-expanded="false" 
+            aria-controls="nav-links" 
+            aria-label="Toggle navigation menu"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="3" x2="21" y1="6" y2="6"/>
+              <line x1="3" x2="21" y1="12" y2="12"/>
+              <line x1="3" x2="21" y1="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <main id="main-content">
+      
+      <!-- ===================================================================
+           2. HERO SECTION
+           =================================================================== -->
+      <section class="hero-section" id="top" aria-labelledby="hero-heading">
+        <div class="container">
+          <div class="hero-grid">
+            
+            <!-- Hero Content Column -->
+            <div class="hero-content">
+              <div class="hero-meta">
+                <span>OmniDimension Voice Architecture</span>
+                <span class="hero-meta-dot" aria-hidden="true">·</span>
+                <span>Live Client: Veloura Studio (Karachi)</span>
+              </div>
+
+              <h1 id="hero-heading" class="hero-title">
+                Meet Your Always-On <span class="hero-highlight">AI Receptionist</span>
+              </h1>
+
+              <p class="hero-description">
+                Never lose a salon client to an unanswered phone. Voxora answers instantly with natural human tone, schedules appointments, answers questions about hours and treatments, and handles multi-turn conversations 24/7.
+              </p>
+
+              <div class="hero-cta-group">
+                <button type="button" class="btn-primary" id="hero-call-btn">
+                  <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                  Talk to Voxora (Live Demo)
+                </button>
+                <a href="#business-services" class="btn-secondary">
+                  Deploy for Your Business
+                </a>
+              </div>
+
+              <div class="hero-trust-strip">
+                <div class="trust-item">
+                  <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>Zero Hold Times</span>
+                </div>
+                <div class="trust-item">
+                  <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>Voice, Chat &amp; Phone Ready</span>
+                </div>
+                <div class="trust-item">
+                  <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>Direct Booking Intake</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Waveform Cadence Card -->
+            <aside class="hero-visual" aria-label="Audio Waveform Visualization Preview">
+              <div class="waveform-panel">
+                <div class="waveform-header">
+                  <div class="waveform-identity">
+                    <span class="waveform-agent-name">Voice Cadence Monitor</span>
+                    <span class="waveform-subtitle" id="wave-status-label">Ambient Pulse Active</span>
+                  </div>
+                  <div class="waveform-controls">
+                    <button 
+                      type="button" 
+                      id="toggle-wave-animation" 
+                      class="control-btn" 
+                      aria-pressed="false"
+                      aria-label="Toggle waveform animation"
+                    >
+                      Pause Animation
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 20 Rhythmic Waveform Bars -->
+                <div class="visualizer-container" id="visualizer-bars" aria-hidden="true">
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                </div>
+
+                <div class="waveform-meta">
+                  <div class="waveform-meta-left">
+                    <span class="tabular-nums">Cartesia Engine</span>
+                    <span aria-hidden="true">·</span>
+                    <span>Sub-second synthesis</span>
+                  </div>
+                  <span class="waveform-notice">Decorative cadence visual</span>
+                </div>
+              </div>
+            </aside>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           3. LIVE DEMO SECTION (Voice Call, Chat & OmniDimension Widget)
+           =================================================================== -->
+      <section class="demo-section" id="live-demo" aria-labelledby="demo-heading">
+        <div class="container">
+          
+          <header class="section-header">
+            <span class="section-kicker">Interactive Experience</span>
+            <h2 id="demo-heading" class="section-title">Test Voxora AI in Action</h2>
+            <p class="section-subtitle">
+              Choose your preferred method below to speak or chat with Veloura Studio's live AI receptionist.
+            </p>
+          </header>
+
+          <div class="demo-frame">
+            
+            <!-- Demo Header & Mode Selector Tabs -->
+            <div class="demo-top-bar">
+              <div class="demo-profile-info">
+                <div class="demo-avatar" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                  </svg>
+                </div>
+                <div class="demo-title-group">
+                  <h3>Veloura Studio Receptionist</h3>
+                  <p class="demo-profile-context">Karachi Salon Concierge · Mon–Sat 10:00 AM – 8:00 PM</p>
+                </div>
+              </div>
+
+              <!-- Interactive Mode Tabs -->
+              <div class="demo-tabs-container" role="tablist" aria-label="Demo interaction channels">
+                <button type="button" class="demo-tab active" id="tab-voice" role="tab" aria-selected="true" aria-controls="panel-voice">
+                  <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+                  Voice Call
+                </button>
+                <button type="button" class="demo-tab" id="tab-chat" role="tab" aria-selected="false" aria-controls="panel-chat">
+                  <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  Text Chat
+                </button>
+                <button type="button" class="demo-tab" id="tab-widget" role="tab" aria-selected="false" aria-controls="panel-widget">
+                  <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+                  Omni Widget
+                </button>
+              </div>
+            </div>
+
+            <!-- TAB PANEL 1: VOICE CALL INTERFACE -->
+            <div id="panel-voice" class="demo-tab-panel active" role="tabpanel" aria-labelledby="tab-voice">
+              
+              <!-- Idle State -->
+              <div id="voice-idle-state" class="call-card-container">
+                <div class="call-avatar-pulse">
+                  <div class="pulse-ring"></div>
+                  <div class="pulse-ring delay"></div>
+                  <div class="call-avatar-inner">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                      <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    </svg>
+                  </div>
+                </div>
+
+                <h4 class="call-heading">Ready to Call Veloura Studio</h4>
+                <p class="call-subtext">Click below to start an interactive voice conversation with Voxora. Speak naturally through your microphone.</p>
+
+                <div class="call-actions">
+                  <button type="button" id="start-call-trigger" class="btn-primary btn-call-start">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    Start Voice Call
+                  </button>
+                  <button type="button" id="switch-to-chat-btn" class="btn-secondary">
+                    Prefer to Type? Open Chat
+                  </button>
+                </div>
+              </div>
+
+              <!-- Active Call Screen State -->
+              <div id="voice-active-state" class="call-active-container" style="display: none;">
+                <div class="call-status-bar">
+                  <span class="call-live-indicator"></span>
+                  <span id="call-timer" class="tabular-nums">00:00</span>
+                  <span class="call-connection-label">Connected · Voxora Speaking</span>
+                </div>
+
+                <!-- Spoken Transcript / Live Caption -->
+                <div class="call-caption-bubble" id="live-caption-box">
+                  <p id="live-caption-text">"Hello, thank you for calling Veloura Studio. How can I assist you today?"</p>
+                </div>
+
+                <!-- In-Call Audio Waveform Graphic -->
+                <div class="in-call-waves" aria-hidden="true">
+                  <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                  <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                  <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </div>
+
+                <!-- Call Control Bar -->
+                <div class="in-call-controls">
+                  <button type="button" id="mute-mic-btn" class="call-ctrl-btn" aria-label="Mute or unmute microphone">
+                    <svg id="mic-icon" class="ctrl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                      <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    </svg>
+                    <span id="mute-label">Mute Mic</span>
+                  </button>
+
+                  <button type="button" id="end-call-btn" class="call-ctrl-btn btn-danger" aria-label="End voice call">
+                    <svg class="ctrl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18"/>
+                      <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                    <span>End Call</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- TAB PANEL 2: TWO-WAY TEXT CHAT INTERFACE -->
+            <div id="panel-chat" class="demo-tab-panel" role="tabpanel" aria-labelledby="tab-chat" style="display: none;">
+              
+              <div class="chat-container">
+                <!-- Message Thread Area -->
+                <div class="chat-thread" id="chat-messages" role="log" aria-live="polite">
+                  <div class="chat-msg msg-agent">
+                    <div class="msg-avatar">V</div>
+                    <div class="msg-body">
+                      <span class="msg-author">Voxora (Receptionist)</span>
+                      <p>Hello! Thank you for contacting Veloura Studio. How can I assist you with our services, opening hours, or appointment bookings today?</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Chat Input Controls -->
+                <form id="chat-input-form" class="chat-input-bar">
+                  <input 
+                    type="text" 
+                    id="chat-user-input" 
+                    class="chat-input-field" 
+                    placeholder="Type your question (e.g. 'What services do you offer?')..." 
+                    autocomplete="off"
+                    aria-label="Message Voxora"
+                  />
+                  <button type="submit" class="btn-primary chat-send-btn" aria-label="Send message">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;">
+                      <line x1="22" y1="2" x2="11" y2="13"/>
+                      <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                  </button>
+                </form>
+              </div>
+
+            </div>
+
+            <!-- TAB PANEL 3: OMNIDIMENSION OFFICIAL WIDGET -->
+            <div id="panel-widget" class="demo-tab-panel" role="tabpanel" aria-labelledby="tab-widget" style="display: none;">
+              
+              <div id="omnidimension-widget-container" class="widget-mount-area">
+                <div class="widget-active-status">
+                  <svg class="widget-slot-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" x2="12" y1="19" y2="22"/>
+                  </svg>
+                  <h4 class="widget-slot-title">Official OmniDimension Web Widget Active</h4>
+                  <p class="widget-slot-instructions">
+                    The official script is loaded with key <code>4dd7f15a...</code>. You can trigger the floating call button directly in the bottom-right corner, or click the launcher below:
+                  </p>
+                  <button type="button" id="trigger-widget-btn" class="btn-primary" style="margin-top: 14px;">
+                    Open OmniDimension Voice Modal
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Sample Inquiries for Testing -->
+            <div class="demo-prompts-section">
+              <h4 class="demo-prompts-header">Quick Questions Trained in Voxora's Profile (Click to test):</h4>
+              <div class="prompt-chips">
+                <button type="button" class="prompt-chip" data-prompt="What services do you offer?">
+                  <span>"What services do you offer?"</span>
+                </button>
+                <button type="button" class="prompt-chip" data-prompt="Are you open on Sundays?">
+                  <span>"Are you open on Sundays?"</span>
+                </button>
+                <button type="button" class="prompt-chip" data-prompt="Can you book me for a haircut tomorrow?">
+                  <span>"Can you book me for a haircut tomorrow?"</span>
+                </button>
+                <button type="button" class="prompt-chip" data-prompt="Where are you located in Karachi?">
+                  <span>"Where are you located in Karachi?"</span>
+                </button>
+                <button type="button" class="prompt-chip" data-prompt="How much does a facial cost?">
+                  <span>"How much does a facial cost?"</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           4. FEATURES SECTION
+           =================================================================== -->
+      <section class="features-section" id="features" aria-labelledby="features-heading">
+        <div class="container">
+          
+          <header class="section-header">
+            <span class="section-kicker">Core Capabilities</span>
+            <h2 id="features-heading" class="section-title">Built for Real Salon &amp; Studio Workflows</h2>
+            <p class="section-subtitle">
+              Engineered with conversational guardrails, instant intent parsing, and graceful callback scheduling.
+            </p>
+          </header>
+
+          <div class="features-grid">
+            
+            <!-- Feature 1 -->
+            <article class="feature-card">
+              <div class="feature-icon-wrapper" aria-hidden="true">
+                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  <path d="M8 9h8"/>
+                  <path d="M8 13h6"/>
+                </svg>
+              </div>
+              <h3 class="feature-title">Fluid Voice Dialogue</h3>
+              <p class="feature-text">
+                Natural turn-taking, background noise reduction (via Soniox), and human cadence (powered by Cartesia). Handles mid-sentence interruptions without losing context.
+              </p>
+            </article>
+
+            <!-- Feature 2 -->
+            <article class="feature-card">
+              <div class="feature-icon-wrapper" aria-hidden="true">
+                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
+              <h3 class="feature-title">Accurate Request Intake</h3>
+              <p class="feature-text">
+                Collects preferred date, time slot, requested treatment, and caller contact number. Repeats details back to caller for confirmation before sending to your salon desk.
+              </p>
+            </article>
+
+            <!-- Feature 3 -->
+            <article class="feature-card">
+              <div class="feature-icon-wrapper" aria-hidden="true">
+                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                  <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+              </div>
+              <h3 class="feature-title">Firm Guardrails &amp; FAQs</h3>
+              <p class="feature-text">
+                Trained on verified facts. Never hallucinates pricing or promises unverified slots. Gently informs callers when info is unavailable and schedules staff callbacks.
+              </p>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           5. REAL SERVICES / BUSINESS DEPLOYMENT SECTION
+           =================================================================== -->
+      <section class="business-section" id="business-services" aria-labelledby="business-heading">
+        <div class="container">
+          
+          <header class="section-header">
+            <span class="section-kicker">Real Business Services</span>
+            <h2 id="business-heading" class="section-title">Deploy Voxora for Your Business</h2>
+            <p class="section-subtitle">
+              Ready to automate your inbound calls? We configure and deploy custom voice receptionists for salons, medical clinics, legal offices, and hospitality.
+            </p>
+          </header>
+
+          <div class="business-grid">
+            
+            <!-- What We Deliver Column -->
+            <div class="business-details-card">
+              <h3 class="business-card-title">Production Voice Receptionist Package</h3>
+              <p class="business-card-sub">Everything included to replace missed calls with automated customer bookings.</p>
+              
+              <ul class="business-perks-list">
+                <li class="perk-item">
+                  <svg class="perk-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  <div>
+                    <strong>Custom Business Knowledge Base:</strong>
+                    <span>Trained on your exact services, staff, pricing tiers, hours, and cancellation guidelines.</span>
+                  </div>
+                </li>
+                <li class="perk-item">
+                  <svg class="perk-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  <div>
+                    <strong>Direct Telephony &amp; Web Widget Sync:</strong>
+                    <span>Port your existing phone number (Twilio/SIP) plus an embeddable website widget.</span>
+                  </div>
+                </li>
+                <li class="perk-item">
+                  <svg class="perk-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  <div>
+                    <strong>Calendar &amp; CRM Integration:</strong>
+                    <span>Pushes verified bookings directly to Google Calendar, Fresha, Calendly, or your custom booking system.</span>
+                  </div>
+                </li>
+                <li class="perk-item">
+                  <svg class="perk-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  <div>
+                    <strong>SMS Confirmation &amp; Call Summaries:</strong>
+                    <span>Instant SMS notifications sent to both customer and manager with transcribed call summaries.</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Consultation / Service Onboarding Form -->
+            <div class="business-form-card">
+              <h3 class="business-card-title">Request Business Onboarding</h3>
+              <p class="business-card-sub">Submit your details to receive a customized voice receptionist demo and deployment quote.</p>
+
+              <form id="business-inquiry-form" class="inquiry-form">
+                <div class="form-row">
+                  <label for="contact-name" class="form-label">Full Name</label>
+                  <input type="text" id="contact-name" class="form-input" placeholder="e.g. Sarah Jenkins" required />
+                </div>
+
+                <div class="form-row">
+                  <label for="contact-business" class="form-label">Business Name &amp; Industry</label>
+                  <input type="text" id="contact-business" class="form-input" placeholder="e.g. Veloura Spa (Salon &amp; Wellness)" required />
+                </div>
+
+                <div class="form-row">
+                  <label for="contact-email" class="form-label">Work Email</label>
+                  <input type="email" id="contact-email" class="form-input" placeholder="you@business.com" required />
+                </div>
+
+                <div class="form-row">
+                  <label for="contact-phone" class="form-label">Phone Number (with Country Code)</label>
+                  <input type="tel" id="contact-phone" class="form-input" placeholder="+1 (555) 000-0000" required />
+                </div>
+
+                <div class="form-row">
+                  <label for="contact-volume" class="form-label">Estimated Monthly Inbound Calls</label>
+                  <select id="contact-volume" class="form-select">
+                    <option value="under-500">Under 500 calls/month</option>
+                    <option value="500-2000">500 to 2,000 calls/month</option>
+                    <option value="2000-plus">2,000+ calls/month</option>
+                  </select>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 8px;">
+                  Submit Request for Voxora Deployment
+                </button>
+              </form>
+
+              <!-- Form Confirmation Success State -->
+              <div id="form-success-box" class="form-success-banner" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="success-icon">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                <h4>Inquiry Received!</h4>
+                <p>Thank you. Our deployment specialist will reach out within 24 business hours with your custom voice architecture proposal.</p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Accessible Toast Notice -->
+    <div id="copy-toast" class="toast-notice" role="status" aria-live="polite"></div>
+
+    <!-- =====================================================================
+         6. FOOTER SECTION
+         ===================================================================== -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="container">
+        
+        <div class="footer-grid">
+          
+          <div class="footer-brand-column">
+            <a href="#top" class="footer-logo" aria-label="Voxora AI">
+              <span class="brand-name">Voxora <span class="brand-accent">AI</span></span>
+            </a>
+            <p class="footer-description">
+              Intelligent 24/7 AI voice receptionist engineered for appointment booking, 
+              customer FAQ guidance, and seamless voice communication.
+            </p>
+            <div class="footer-demo-disclaimer">
+              <strong>Notice:</strong> Veloura Studio (Karachi) serves as the live demonstration profile to showcase Voxora AI capabilities. Voice interactions are powered by OmniDimension AI technology.
+            </div>
+          </div>
+
+          <div class="footer-nav-column">
+            <h4 class="footer-column-title">Navigation</h4>
+            <ul class="footer-links">
+              <li><a href="#live-demo" class="footer-link">Live Voice &amp; Chat Demo</a></li>
+              <li><a href="#features" class="footer-link">Core Features</a></li>
+              <li><a href="#business-services" class="footer-link">Real Services &amp; Pricing</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-legal-column">
+            <h4 class="footer-column-title">OmniDimension</h4>
+            <ul class="footer-links">
+              <li><a href="#live-demo" class="footer-link">Secret Key: 4dd7f1...</a></li>
+              <li><a href="#business-services" class="footer-link">Custom Deployment</a></li>
+              <li><a href="#top" class="footer-link">Back to Top</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2026 Voxora AI. All rights reserved.</p>
+          <p>Powered by OmniDimension · Designed for static deployment</p>
+        </div>
+
+      </div>
+    </footer>
+
+    <!-- Client-Side Vanilla JS -->
+    <script src="./script.js"></script>
+
+    <!-- =====================================================================
+         OMNIDIMENSION OFFICIAL WEB WIDGET SCRIPT
+         Official embed generated from OmniDimension dashboard
+         ===================================================================== -->
+    <script id="omnidimension-web-widget" async src="https://omnidim.io/web_widget.js?secret_key=4dd7f15ad118c56d8450b4798968a0b8"></script>
+
+  </body>
+</html>

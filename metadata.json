@@ -1,0 +1,6 @@
+{
+  "name": "Voxora AI - AI Voice Receptionist",
+  "description": "Portfolio website for Voxora AI, an AI voice receptionist powered by OmniDimension.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
