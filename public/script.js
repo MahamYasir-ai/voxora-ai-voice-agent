@@ -563,13 +563,8 @@ function initOmniWidgetIntegration() {
     });
   }
 
-  const observer = new MutationObserver(() => {
-    positionFloatingCloseButton();
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true, attributes: true });
   window.addEventListener('resize', positionFloatingCloseButton);
-  setInterval(positionFloatingCloseButton, 1500);
+  setInterval(positionFloatingCloseButton, 2000);
 }
 
 /* ==========================================================================
